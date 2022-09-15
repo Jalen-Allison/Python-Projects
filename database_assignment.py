@@ -18,39 +18,24 @@ with conn:
         col_ext TEXT \
         )")
     conn.commit()
-conn.close()
 
 conn = sqlite3.connect('assignment1.db')
 
-with conn:
-    cur = conn.cursor()
-    cur.execute("INSERT INTO tbl_files(col_name, col_ext) VALUES (?,?)" , \
-                ('information', 'docx'))
-    cur.execute("INSERT INTO tbl_files(col_name, col_ext) VALUES (?,?)" , \
-                ('Hello', 'txt'))
-    cur.execute("INSERT INTO tbl_files(col_name, col_ext) VALUES (?,?)" , \
-                ('myImage', 'png'))
-    cur.execute("INSERT INTO tbl_files(col_name, col_ext) VALUES (?,?)" , \
-                ('myMovie', 'mpg'))
-    cur.execute("INSERT INTO tbl_files(col_name, col_ext) VALUES (?,?)" , \
-                ('World', 'txt'))
-    cur.execute("INSERT INTO tbl_files(col_name, col_ext) VALUES (?,?)" , \
-                ('data', 'pdf'))
-    cur.execute("INSERT INTO tbl_files(col_name, col_ext) VALUES (?,?)" , \
-                ('myPhoto', 'jpg'))
-    conn.commit()
-conn.close()
-
-conn = sqlite3.connect('assignment1.db')
+fileList = ('information.docx','Hello.txt','myImage.png', \
+            'myMovie.mpg', 'World.txt', 'data.pdf', 'myPhoto.jpg')
 
 #sends and execute SQL command to query our database to return specific information to return back to us
-with conn:
-    cur = conn.cursor()
-    cur.execute("SELECT col_name,col_ext FROM tbl_files WHERE col_ext = 'txt'")
-    #store in a variable so it is no longer volatile
-    #so when we catch the information it stays and the information wont be lost 
-    varFile = cur.fetchmany(2)      
-    for item in varFile:
-        msg = "File Name: {}\nFile Ext: {}".format(item[0],item[1])
-        print(msg)
+for x in fileList:
+    if x.endswith('.txt'): 
+        with conn:
+            cur = conn.cursor()
+            cur.execute("INSERT INTO tbl_files (col_ext) VALUES (?)", (x,))
+            print(x)
+conn.close()
+    
+    
+    
+    
+    
+ 
     
