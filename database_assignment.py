@@ -29,6 +29,8 @@ for x in fileList:
     if x.endswith('.txt'): 
         with conn:
             cur = conn.cursor()
+            #The value for each row will be one name out of the tuple therefore (x,)
+            #will indicate a one element tuple for each extention ending with .txt
             cur.execute("INSERT INTO tbl_files (col_ext) VALUES (?)", (x,))
             print(x)
 conn.close()
