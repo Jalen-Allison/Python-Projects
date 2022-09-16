@@ -14,8 +14,7 @@ with conn:
     #the sql statement that we will be passing into the execute function
     cur.execute("CREATE TABLE IF NOT EXISTS tbl_files( \
         ID INTEGER PRIMARY KEY AUTOINCREMENT, \
-        col_name TEXT, \
-        col_ext TEXT \
+        col_name TEXT \
         )")
     conn.commit()
 
@@ -31,7 +30,7 @@ for x in fileList:
             cur = conn.cursor()
             #The value for each row will be one name out of the tuple therefore (x,)
             #will indicate a one element tuple for each extention ending with .txt
-            cur.execute("INSERT INTO tbl_files (col_ext) VALUES (?)", (x,))
+            cur.execute("INSERT INTO tbl_files (col_name) VALUES (?)", (x,))
             print(x)
 conn.close()
     
